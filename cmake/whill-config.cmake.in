@@ -1,0 +1,54 @@
+# Whill CMake config file
+#
+# This file sets the following variables:
+# Whill_FOUND - Always TRUE.
+# Whill_INCLUDE_DIRS - Directories containing the Whill include files.
+# Whill_IDL_DIRS - Directories containing the Whill IDL files.
+# Whill_LIBRARIES - Libraries needed to use Whill.
+# Whill_DEFINITIONS - Compiler flags for Whill.
+# Whill_VERSION - The version of Whill found.
+# Whill_VERSION_MAJOR - The major version of Whill found.
+# Whill_VERSION_MINOR - The minor version of Whill found.
+# Whill_VERSION_REVISION - The revision version of Whill found.
+# Whill_VERSION_CANDIDATE - The candidate version of Whill found.
+
+message(STATUS "Found Whill-@PROJECT_VERSION@")
+set(Whill_FOUND TRUE)
+
+find_package(<dependency> REQUIRED)
+
+#set(Whill_INCLUDE_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@"
+#    ${<dependency>_INCLUDE_DIRS}
+#    )
+#
+#set(Whill_IDL_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@/idl")
+set(Whill_INCLUDE_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@"
+    ${<dependency>_INCLUDE_DIRS}
+    )
+set(Whill_IDL_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@/idl")
+
+
+if(WIN32)
+    set(Whill_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_STATIC_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+else(WIN32)
+    set(Whill_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_SHARED_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+endif(WIN32)
+
+set(Whill_DEFINITIONS ${<dependency>_DEFINITIONS})
+
+set(Whill_VERSION @PROJECT_VERSION@)
+set(Whill_VERSION_MAJOR @PROJECT_VERSION_MAJOR@)
+set(Whill_VERSION_MINOR @PROJECT_VERSION_MINOR@)
+set(Whill_VERSION_REVISION @PROJECT_VERSION_REVISION@)
+set(Whill_VERSION_CANDIDATE @PROJECT_VERSION_CANDIDATE@)
+
