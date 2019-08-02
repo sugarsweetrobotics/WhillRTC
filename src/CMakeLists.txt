@@ -33,6 +33,9 @@ include_directories(${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME})
 include_directories(${PROJECT_BINARY_DIR})
 include_directories(${PROJECT_BINARY_DIR}/idl)
 include_directories(${OPENRTM_INCLUDE_DIRS})
+
+include_directories(${PROJECT_SOURCE_DIR}/libcppwhill/include)
+
 add_definitions(${OPENRTM_CFLAGS})
 
 MAP_ADD_STR(comp_hdrs "../" comp_headers)

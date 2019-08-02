@@ -75,7 +75,7 @@ void MyModuleInit(RTC::Manager* manager)
   return;
 }
 
-int main (int argc, char** argv)
+int rmain (int argc, char** argv)
 {
   RTC::Manager* manager;
   manager = RTC::Manager::init(argc, argv);
@@ -98,4 +98,37 @@ int main (int argc, char** argv)
   // manager->runManager(true);
 
   return 0;
+}
+
+
+
+int main(int argc, char** argv) {
+
+	try {
+
+		whill::Whill* w = whill::createWhill("COM3");
+		w->startAutoUpdate(100);
+		w->setJoy(100, 0);
+		//w->setTargetVelocity(whill::Velocity2D(0, 0, 0));
+		for (int i = 0; i < 3000; i++) {
+			ssr::Thread::Sleep(30);
+			w->setJoy(100, 0);
+			//w->setTargetVelocity(whill::Velocity2D(10, 0, 0));
+
+			//w->updateOnce();
+			whill::Joy v = w->getJoy();
+
+			std::cout << "x:" << (int)v.x << " ,y:" <<(int) v.y << std::endl;
+		}
+		//w->setTargetVelocity(whill::Velocity2D(0, 0, 0));
+		w->setJoy(0, 0);
+		w->stopAutoUpdate();
+		delete w;
+
+	}
+	catch (std::exception& e) {
+		std::cout << "Exception: " << e.what() << std::endl;
+		return -1;
+	}
+	return 0;
 }

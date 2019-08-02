@@ -126,18 +126,27 @@ RTC::ReturnCode_t Whill::onShutdown(RTC::UniqueId ec_id)
 
 RTC::ReturnCode_t Whill::onActivated(RTC::UniqueId ec_id)
 {
+	pwhill = whill::createWhill(this->m_port_name);
+	pwhill->startAutoUpdate(100);
   return RTC::RTC_OK;
 }
 
 
 RTC::ReturnCode_t Whill::onDeactivated(RTC::UniqueId ec_id)
 {
+	pwhill->stopAutoUpdate();
   return RTC::RTC_OK;
 }
 
 
 RTC::ReturnCode_t Whill::onExecute(RTC::UniqueId ec_id)
 {
+	if (m_targetVelocityIn.isNew()) {
+		m_targetVelocityIn.read();
+		pwhill->setJoy(m_targetVelocity.data.vx * 100, m_targetVelocity.data.va * 100);
+	}
+
+	
   return RTC::RTC_OK;
 }
 

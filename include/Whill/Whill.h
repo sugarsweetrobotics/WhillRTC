@@ -41,6 +41,8 @@
 
 using namespace RTC;
 
+#include "libcppwhill/Whill.h"
+
 /*!
  * @class Whill
  * @brief Whill RT-component
@@ -310,6 +312,8 @@ class Whill
   
   // </rtc-template>
 
+
+	 whill::Whill *pwhill;
 };
 
 
