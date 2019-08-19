@@ -1,0 +1,3 @@
+[submodule "libcppwhill"]
+	path = libcppwhill
+	url = https://github.com/sugarsweetrobotics/libcppwhill.git
